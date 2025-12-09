@@ -77,7 +77,7 @@ export default function HeroBanner({ onButtonClick }: HeroBannerProps) {
 
   return (
     <div 
-      className="relative w-full aspect-[16/9] md:aspect-[21/8] overflow-hidden rounded-xl shadow-lg"
+      className="relative w-full h-[280px] sm:h-[320px] md:h-[360px] overflow-hidden rounded-2xl shadow-lg"
       data-testid="hero-banner"
     >
       <div className="absolute inset-0">
@@ -90,27 +90,27 @@ export default function HeroBanner({ onButtonClick }: HeroBannerProps) {
       </div>
 
       <div className="relative h-full flex items-center">
-        <div className="container mx-auto px-6 md:px-12">
+        <div className="container mx-auto px-5 md:px-8">
           <div className="max-w-lg text-white">
             {slide.badge && (
               <span 
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium mb-4 backdrop-blur-md"
+                className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium mb-3 backdrop-blur-md"
                 style={{ backgroundColor: `${slide.accent}40`, border: `1px solid ${slide.accent}60` }}
               >
                 <Sparkles className="w-3 h-3" />
                 {slide.badge}
               </span>
             )}
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-3 leading-tight tracking-tight">
+            <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 leading-tight tracking-tight">
               {slide.title}
             </h2>
-            <p className="text-sm md:text-base lg:text-lg opacity-90 mb-6 leading-relaxed">
+            <p className="text-xs sm:text-sm md:text-base opacity-90 mb-4 leading-relaxed line-clamp-2">
               {slide.subtitle}
             </p>
             <Button
-              size="lg"
+              size="sm"
               onClick={() => onButtonClick?.(slide.buttonLink)}
-              className="text-white border border-white/30 backdrop-blur-sm hover:bg-white/20 transition-all duration-300"
+              className="text-white border border-white/30 backdrop-blur-sm hover:bg-white/20 transition-all duration-300 h-9 text-sm"
               style={{ backgroundColor: `${slide.accent}90` }}
               data-testid={`banner-btn-${slide.id}`}
             >
@@ -124,22 +124,22 @@ export default function HeroBanner({ onButtonClick }: HeroBannerProps) {
         size="icon"
         variant="ghost"
         onClick={prevSlide}
-        className="absolute left-3 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 border border-white/20 w-9 h-9"
+        className="absolute left-2 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 border border-white/20 w-8 h-8"
         data-testid="banner-prev"
       >
-        <ChevronLeft className="w-5 h-5" strokeWidth={1.5} />
+        <ChevronLeft className="w-4 h-4" strokeWidth={1.5} />
       </Button>
       <Button
         size="icon"
         variant="ghost"
         onClick={nextSlide}
-        className="absolute right-3 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 border border-white/20 w-9 h-9"
+        className="absolute right-2 top-1/2 -translate-y-1/2 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 border border-white/20 w-8 h-8"
         data-testid="banner-next"
       >
-        <ChevronRight className="w-5 h-5" strokeWidth={1.5} />
+        <ChevronRight className="w-4 h-4" strokeWidth={1.5} />
       </Button>
 
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
         {slides.map((_, index) => (
           <button
             key={index}
@@ -147,7 +147,7 @@ export default function HeroBanner({ onButtonClick }: HeroBannerProps) {
             className={cn(
               'h-1.5 rounded-full transition-all duration-300',
               index === currentSlide
-                ? 'w-8 bg-white'
+                ? 'w-6 bg-white'
                 : 'w-1.5 bg-white/40 hover:bg-white/60'
             )}
             data-testid={`banner-dot-${index}`}
