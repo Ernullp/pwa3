@@ -60,11 +60,11 @@ function FilterContent({ onFilterChange }: FilterSidebarProps) {
   };
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-4">
       <div>
-        <label className="text-sm font-medium mb-2.5 block text-foreground/80">مرتب‌سازی</label>
+        <label className="text-sm font-medium mb-2 block text-foreground/80">مرتب‌سازی</label>
         <Select value={sortBy} onValueChange={(v) => { setSortBy(v as typeof sortBy); onFilterChange?.(); }}>
-          <SelectTrigger data-testid="sort-select" className="bg-muted/30 border-border/50">
+          <SelectTrigger data-testid="sort-select" className="bg-muted/30 border-border/50 h-9">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
@@ -79,19 +79,19 @@ function FilterContent({ onFilterChange }: FilterSidebarProps) {
       <div>
         <button
           onClick={() => toggleSection('category')}
-          className="flex items-center justify-between w-full text-sm font-medium mb-3 text-foreground/80"
+          className="flex items-center justify-between w-full text-sm font-medium mb-2 text-foreground/80"
         >
           <span>دسته‌بندی</span>
           {expandedSections.category ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
         </button>
         {expandedSections.category && (
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-0.5">
             {categories.map(category => (
               <button
                 key={category.id}
                 onClick={() => { setSelectedCategory(category.id === selectedCategory ? null : category.id); onFilterChange?.(); }}
                 className={cn(
-                  'flex items-center gap-2.5 p-2.5 rounded-lg text-sm text-right transition-colors',
+                  'flex items-center gap-2 p-2 rounded-lg text-sm text-right transition-colors',
                   selectedCategory === category.id 
                     ? 'bg-muted' 
                     : 'hover:bg-muted/50'
@@ -112,7 +112,7 @@ function FilterContent({ onFilterChange }: FilterSidebarProps) {
       <div>
         <button
           onClick={() => toggleSection('price')}
-          className="flex items-center justify-between w-full text-sm font-medium mb-3 text-foreground/80"
+          className="flex items-center justify-between w-full text-sm font-medium mb-2 text-foreground/80"
         >
           <span>محدوده قیمت</span>
           {expandedSections.price ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
@@ -125,10 +125,10 @@ function FilterContent({ onFilterChange }: FilterSidebarProps) {
               max={2000000}
               step={50000}
               onValueChange={handlePriceChange}
-              className="mt-4"
+              className="mt-3"
               data-testid="price-slider"
             />
-            <div className="flex justify-between mt-3 text-xs text-muted-foreground/70">
+            <div className="flex justify-between mt-2 text-xs text-muted-foreground/70">
               <span>{formatPrice(priceRange[0])}</span>
               <span>{formatPrice(priceRange[1])}</span>
             </div>
@@ -139,17 +139,17 @@ function FilterContent({ onFilterChange }: FilterSidebarProps) {
       <div>
         <button
           onClick={() => toggleSection('brand')}
-          className="flex items-center justify-between w-full text-sm font-medium mb-3 text-foreground/80"
+          className="flex items-center justify-between w-full text-sm font-medium mb-2 text-foreground/80"
         >
           <span>برند</span>
           {expandedSections.brand ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
         </button>
         {expandedSections.brand && (
-          <div className="flex flex-col gap-2.5 max-h-48 overflow-y-auto">
+          <div className="flex flex-col gap-2 max-h-40 overflow-y-auto">
             {brands.map(brand => (
               <label
                 key={brand.id}
-                className="flex items-center gap-2.5 text-sm cursor-pointer text-foreground/80"
+                className="flex items-center gap-2 text-sm cursor-pointer text-foreground/80"
               >
                 <Checkbox
                   checked={selectedBrands.includes(brand.id)}
@@ -166,19 +166,19 @@ function FilterContent({ onFilterChange }: FilterSidebarProps) {
       <div>
         <button
           onClick={() => toggleSection('rating')}
-          className="flex items-center justify-between w-full text-sm font-medium mb-3 text-foreground/80"
+          className="flex items-center justify-between w-full text-sm font-medium mb-2 text-foreground/80"
         >
           <span>حداقل امتیاز</span>
           {expandedSections.rating ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
         </button>
         {expandedSections.rating && (
-          <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1">
             {[4, 3, 2, 1].map(rating => (
               <button
                 key={rating}
                 onClick={() => handleRatingChange(rating)}
                 className={cn(
-                  'flex items-center gap-2.5 p-2.5 rounded-lg transition-colors',
+                  'flex items-center gap-2 p-2 rounded-lg transition-colors',
                   minRating === rating ? 'bg-muted' : 'hover:bg-muted/50'
                 )}
                 data-testid={`filter-rating-${rating}`}
@@ -194,7 +194,7 @@ function FilterContent({ onFilterChange }: FilterSidebarProps) {
       <Button
         variant="outline"
         onClick={() => { resetFilters(); onFilterChange?.(); }}
-        className="w-full border-border/50 hover:bg-muted/50"
+        className="w-full border-border/50 hover:bg-muted/50 h-9"
         data-testid="reset-filters"
       >
         <X className="w-4 h-4 ml-2" strokeWidth={1.5} />
@@ -207,9 +207,10 @@ function FilterContent({ onFilterChange }: FilterSidebarProps) {
 export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
   return (
     <>
+      {/* Desktop Sidebar */}
       <aside className="hidden lg:block w-64 shrink-0">
-        <div className="sticky top-32 bg-card rounded-xl border border-border/40 p-5 shadow-sm">
-          <h2 className="font-semibold text-base mb-5 flex items-center gap-2.5 text-foreground/90">
+        <div className="sticky top-32 bg-card rounded-xl border border-border/40 p-4 shadow-sm">
+          <h2 className="font-semibold text-base mb-4 flex items-center gap-2 text-foreground/90">
             <SlidersHorizontal className="w-5 h-5" strokeWidth={1.5} />
             فیلترها
           </h2>
@@ -217,32 +218,34 @@ export default function FilterSidebar({ onFilterChange }: FilterSidebarProps) {
         </div>
       </aside>
 
+      {/* Mobile Drawer - Compact Button */}
       <Drawer>
         <DrawerTrigger asChild>
           <Button 
             variant="outline" 
-            className="lg:hidden fixed bottom-24 left-4 z-40 shadow-lg bg-card border-border/50 hover:bg-muted/50" 
+            size="sm"
+            className="lg:hidden fixed bottom-24 right-4 z-40 shadow-lg bg-primary text-primary-foreground hover:bg-primary/90 border-0 h-11 px-4 rounded-full" 
             data-testid="mobile-filter-btn"
           >
-            <SlidersHorizontal className="w-4 h-4 ml-2" strokeWidth={1.5} />
-            فیلترها
+            <SlidersHorizontal className="w-4 h-4 ml-1.5" strokeWidth={2} />
+            <span className="font-medium">فیلترها</span>
           </Button>
         </DrawerTrigger>
-        <DrawerContent className="max-h-[65vh]">
-          <DrawerHeader className="border-b border-border/30 pb-4">
+        <DrawerContent className="max-h-[80vh]">
+          <DrawerHeader className="border-b border-border/30 pb-3">
             <DrawerTitle className="flex items-center justify-between">
-              <span className="flex items-center gap-2.5 text-foreground/90">
+              <span className="flex items-center gap-2 text-foreground/90">
                 <SlidersHorizontal className="w-5 h-5" strokeWidth={1.5} />
                 فیلترها
               </span>
               <DrawerClose asChild>
-                <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground">
+                <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-foreground h-8 w-8">
                   <X className="w-5 h-5" strokeWidth={1.5} />
                 </Button>
               </DrawerClose>
             </DrawerTitle>
           </DrawerHeader>
-          <div className="p-5 overflow-y-auto">
+          <div className="p-4 overflow-y-auto">
             <FilterContent onFilterChange={onFilterChange} />
           </div>
         </DrawerContent>
